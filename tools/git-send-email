@@ -1,0 +1,201 @@
+=========================do myself, sucess
+
+1. config the mail in 163 web mail, config the function SMTP and passwd(邮箱客户端授权码)
+
+2. cl@cl-Lenovo-B460:~$ history | grep 'git config'
+  825  git config --global sendemail.smtpserver smtp.163.com
+  829  git config --global sendemail.smtpserverport  465
+  831  git config --global sendemail.smtpserverport  25
+  832  git config --global sendemail.smtpuser chen45464546
+
+
+cl@cl-Lenovo-B460:~$ cat ~/.gitconfig 
+[user]
+    email = chen45464546@163.com
+    name = Chen Lin
+[sendemail]
+    smtpserver = smtp.163.com
+    smtpuser = chen45464546
+    smtpserverport = 25
+cl@cl-Lenovo-B460:~$ 
+3. send test:
+
+git send-email --to chen45464546@163.com 0001-time-remove-blank-space.patch
+
+
+4. -->do the patch
+
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/
+
+git clone, then how to update???
+
+
+
+important: when the latest web blob hash value is the same with the file at local, then the file is the newest 
+
+git commit -s -m "time: remove blank space"    //-s to add the signed-of-by of self
+
+git format-patch HEAD^
+
+vi 0001-time-remove-blank-space.patch   to add the patch description
+
+在signed off by 前加入，描述的前后都空一行
+
+./scripts/checkpatch.pl 0001-time-remove-blank-space.patch 
+total: 0 errors, 0 warnings, 8 lines checked
+
+0001-time-remove-blank-space.patch has no obvious style problems and is ready for submission
+
+
+
+5. scripts/get_maintainer.pl  xx.patch or --file ./kernel/time/timekeeping.c
+or /MAINTAINER file
+ ./scripts/get_maintainer.pl --file kernel/time/timekeeping.c 
+John Stultz <john.stultz@linaro.org> (supporter:TIMEKEEPING, CLOCKSOURCE CORE, NTP, ALARMTIMER)
+Thomas Gleixner <tglx@linutronix.de> (supporter:TIMEKEEPING, CLOCKSOURCE CORE, NTP, ALARMTIMER)
+Stephen Boyd <sboyd@kernel.org> (reviewer:TIMEKEEPING, CLOCKSOURCE CORE, NTP, ALARMTIMER)
+linux-kernel@vger.kernel.org (open list:TIMEKEEPING, CLOCKSOURCE CORE, NTP, ALARMTIMER)
+cl@cl-Lenovo-B460:~/work/linux_src/latest/linux$ 
+
+
+
+6. ==send
+
+git send-email --to john.stultz@linaro.org --cc tglx@linutronix.de,sboyd@kernel.org,linux-kernel@vger.kernel.org  0001-time-remove-blank-space.patch
+
+
+--cc is copy to whos
+
+
+
+confirm y
+
+input 163 another passwd :chen45464546
+
+==send sucess
+Send this email? ([y]es|[n]o|[q]uit|[a]ll): y
+Password for 'smtp://chen45464546@smtp.163.com:25': 
+OK. Log says:
+Server: smtp.163.com
+MAIL FROM:<chen45464546@163.com>
+RCPT TO:<john.stultz@linaro.org>
+RCPT TO:<tglx@linutronix.de>
+RCPT TO:<sboyd@kernel.org>
+RCPT TO:<linux-kernel@vger.kernel.org>
+RCPT TO:<chen45464546@163.com>
+From: Chen Lin <chen45464546@163.com>
+To: john.stultz@linaro.org
+Cc: tglx@linutronix.de,
+    sboyd@kernel.org,
+    linux-kernel@vger.kernel.org,
+    Chen Lin <chen45464546@163.com>
+Subject: [PATCH] time: remove blank space
+Date: Sun, 22 Apr 2018 17:13:57 +0800
+Message-Id: <1524388437-10992-1-git-send-email-chen45464546@163.com>
+X-Mailer: git-send-email 2.7.4
+
+Result: 250 
+cl@cl-Lenovo-B460:~/work/linux_src/latest/linux$ 
+
+
+
+git send-email --to tglx@linutronix.de --cc john.stultz@linaro.org,sboyd@kernel.org,linux-kernel@vger.kernel.org 0001-time-remove-unused-function-pointer-define.patch
+0001-time-remove-unused-function-pointer-define.patch
+(mbox) Adding cc: Chen Lin <chen45464546@163.com> from line 'From: Chen Lin <chen45464546@163.com>'
+(body) Adding cc: Chen Lin <chen45464546@163.com> from line 'Signed-off-by: Chen Lin <chen45464546@163.com>'
+
+From: Chen Lin <chen45464546@163.com>
+To: tglx@linutronix.de
+Cc: john.stultz@linaro.org,
+    sboyd@kernel.org,
+    linux-kernel@vger.kernel.org,
+    Chen Lin <chen45464546@163.com>
+Subject: [PATCH] time: remove unused function pointer define
+Date: Fri, 11 May 2018 23:47:29 +0800
+Message-Id: <1526053649-24229-1-git-send-email-chen45464546@163.com>
+X-Mailer: git-send-email 2.7.4
+
+    The Cc list above has been expanded by additional
+    addresses found in the patch commit message. By default
+    send-email prompts before sending whenever this occurs.
+    This behavior is controlled by the sendemail.confirm
+    configuration setting.
+
+    For additional information, run 'git send-email --help'.
+    To retain the current behavior, but squelch this message,
+    run 'git config --global sendemail.confirm auto'.
+
+Send this email? ([y]es|[n]o|[q]uit|[a]ll): y
+Password for 'smtp://chen45464546@smtp.163.com:25': 
+OK. Log says:
+Server: smtp.163.com
+MAIL FROM:<chen45464546@163.com>
+RCPT TO:<tglx@linutronix.de>
+RCPT TO:<john.stultz@linaro.org>
+RCPT TO:<sboyd@kernel.org>
+RCPT TO:<linux-kernel@vger.kernel.org>
+RCPT TO:<chen45464546@163.com>
+From: Chen Lin <chen45464546@163.com>
+To: tglx@linutronix.de
+Cc: john.stultz@linaro.org,
+    sboyd@kernel.org,
+    linux-kernel@vger.kernel.org,
+    Chen Lin <chen45464546@163.com>
+Subject: [PATCH] time: remove unused function pointer define
+Date: Fri, 11 May 2018 23:47:29 +0800
+Message-Id: <1526053649-24229-1-git-send-email-chen45464546@163.com>
+X-Mailer: git-send-email 2.7.4
+
+Result: 250 
+cl@cl-Lenovo-B460:~/work/linux_src/latest/linux$ 
+
+===================search on net
+
+用 gmail 作为发送服务器。
+
+为了用git send-email通过gmail服务器发送patch。首先编辑 ~/.gitconfig , 写入你的账号配置
+
+
+
+[sendemail]
+smtpencryption = tls
+smtpserver = smtp.gmail.com
+smtpuser = yourname@gmail.com
+smtpserverport = 587
+
+
+
+配置完成后，用下面的命令发送
+
+git add the-modified-files
+
+git commit
+
+$ git format-patch --cover-letter -o outgoing/ -1 -n -s
+$ edit outgoing/0000-*
+$ git send-email outgoing/* --to netdev@....
+
+
+
+=====
+
+1. git send-email is included in an individual package, named "git-email":
+$ sudo apt-get install git-email
+
+2. Configure the SMTP server info after the installation:
+$ git config --global sendemail.smtpserver smtp.gmail.com
+$ git config --global sendemail.smtpserverport 587
+$ git config --global sendemail.smtpencryption tls
+$ git config --global sendemail.smtpuser 你的邮箱
+
+3. Start a new branch to do any dev work:
+$ dev_branch=fix-warning-for-string-format
+$ git branch $dev_branch
+$ git checkout $dev_branch
+$ vim source.c
+$ git add source.c
+$ git commit -s -m "Add format strings for bb_error_msg_and_die"
+
+4. Format a patch and send it out to the receiver:
+$ git format-patch -C -n master..$dev_branch   //git format-patch HEAD^
+$ git send-email --compose --no-chain-reply-to --suppress-from --to kernel@kernel.org 0001-*.patch
