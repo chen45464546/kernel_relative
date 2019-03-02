@@ -1,7 +1,7 @@
 # kernel_relative
 git clone git@github.com:chen45464546/kernel_relative.git
 
-on a new shell steps to commit to this repo:
+#on a new shell steps to commit to this repo:
 
 git config -l
 
@@ -24,7 +24,10 @@ git clone git@github.com:chen45464546/kernel_relative.git
  ...
  
  git commit -m "test:first push test"
+
+git remote/git remote add origin  git@github.com:chen45464546/kernel_relative.git
  
  git push -u origin master
  
  git pull
+
